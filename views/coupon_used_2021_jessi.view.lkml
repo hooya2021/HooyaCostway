@@ -1,7 +1,9 @@
 view: coupon_used_2021_jessi {
   derived_table: {
     sql: SELECT
-          (DATE(sales_flat_order.created_at , 'America/Los_Angeles')) AS Date,
+          (EXTRACT(YEAR FROM sales_flat_order.created_at  AT TIME ZONE 'America/Los_Angeles')) AS sales_flat_order_created_year,
+          (FORMAT_TIMESTAMP('%F', TIMESTAMP_TRUNC(sales_flat_order.created_at , WEEK(MONDAY), 'America/Los_Angeles'), 'America/Los_Angeles')) AS sales_flat_order_created_week,
+          (DATE(sales_flat_order.created_at , 'America/Los_Angeles')) AS sales_flat_order_created_date,
           sales_flat_order.coupon_rule_name  AS coupon_rule_name,
           COUNT(DISTINCT sales_flat_order.increment_id) AS coupon_used,
           COALESCE(SUM(CAST(sales_flat_order.grand_total AS FLOAT64)), 0) AS grand_total,
@@ -13,7 +15,9 @@ view: coupon_used_2021_jessi {
       WHERE (sales_flat_order.coupon_rule_name ) IN ('Newsletter $15 Coupon 2021 New', 'Register $10 Coupon 2021', 'Register $40 Coupon 2021')
       GROUP BY
           1,
-          2
+          2,
+          3,
+          4
        ;;
   }
 
@@ -22,10 +26,20 @@ view: coupon_used_2021_jessi {
     drill_fields: [detail*]
   }
 
-  dimension: date {
+  dimension: sales_flat_order_created_year {
+    type: number
+    sql: ${TABLE}.sales_flat_order_created_year ;;
+  }
+
+  dimension: sales_flat_order_created_week {
+    type: string
+    sql: ${TABLE}.sales_flat_order_created_week ;;
+  }
+
+  dimension: sales_flat_order_created_date {
     type: date
     datatype: date
-    sql: ${TABLE}.Date ;;
+    sql: ${TABLE}.sales_flat_order_created_date ;;
   }
 
   dimension: coupon_rule_name {
@@ -49,6 +63,14 @@ view: coupon_used_2021_jessi {
   }
 
   set: detail {
-    fields: [date, coupon_rule_name, coupon_used, grand_total, count_of_new_customer]
+    fields: [
+      sales_flat_order_created_year,
+      sales_flat_order_created_week,
+      sales_flat_order_created_date,
+      coupon_rule_name,
+      coupon_used,
+      grand_total,
+      count_of_new_customer
+    ]
   }
 }
