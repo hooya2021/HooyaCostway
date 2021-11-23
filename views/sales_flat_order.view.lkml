@@ -284,6 +284,11 @@ view: sales_flat_order {
     sql: ${TABLE}.customer_email ;;
   }
 
+  measure: customer_email_count {
+    type: number
+    sql: count(${customer_email}) ;;
+  }
+
   dimension: customer_firstname {
     type: string
     sql: ${TABLE}.customer_firstname ;;
