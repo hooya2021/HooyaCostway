@@ -76,6 +76,7 @@ view: sales_flat_order_address {
     sql: ${TABLE}.middlename ;;
   }
 
+
   dimension: parent_id {
     type: number
     sql: ${TABLE}.parent_id ;;

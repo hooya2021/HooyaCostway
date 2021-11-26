@@ -456,6 +456,7 @@ view: sales_flat_order {
     sql: ${TABLE}.increment_id ;;
   }
 
+
   dimension: is_virtual {
     type: number
     sql: ${TABLE}.is_virtual ;;

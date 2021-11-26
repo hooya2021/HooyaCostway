@@ -88,7 +88,17 @@ explore: catalog_category_product_index {}
 
 explore: catalog_eav_attribute {}
 
-explore: catalog_product_entity {}
+explore: catalog_product_entity {
+  join: catalog_product_entity_int {
+    relationship: one_to_one
+    sql_on: ${catalog_product_entity.entity_id} = ${catalog_product_entity_int.entity_id} ;;
+  }
+  join: cataloginventory_stock_item{
+    relationship: one_to_one
+    sql_on: ${catalog_product_entity.entity_id} = ${cataloginventory_stock_item.product_id} ;;
+  }
+
+}
 
 explore: catalog_product_entity_datetime {}
 
@@ -577,7 +587,20 @@ explore: sales_flat_order {
     relationship: one_to_many
     sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_item.order_id} ;;
   }
+  join: sales_flat_order_source {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_source.order_id} ;;
+  }
+  join: sales_flat_order_payment {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_payment.entity_id} ;;
+  }
+  join: customer_group {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.customer_group_id} = ${customer_group.customer_group_id} ;;
+  }
 }
+
 
 explore: sales_flat_order_address {}
 
@@ -767,5 +790,3 @@ explore: wishlist_item_stock_alert {
 explore: zeon_landingpage {}
 
 explore: zeon_landingpage_store {}
-
-explore: coupon_used_2021_jessi {}

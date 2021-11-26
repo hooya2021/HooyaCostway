@@ -21,8 +21,21 @@ view: sales_flat_order_source {
 
   dimension: source_type {
     type: string
-    sql: ${TABLE}.source_type ;;
+    sql: ${TABLE}.source_type;;
   }
+
+  dimension: source {
+    case: {
+      when: {
+        sql: ${TABLE}.source_type="mobile" ;;
+        label: "Mobile"}
+      when: {
+        sql: ${TABLE}.source_type="ios" ;;
+        label: "ios"
+      }
+      else: "PC"
+      }
+    }
 
   measure: count {
     type: count
