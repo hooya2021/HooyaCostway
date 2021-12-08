@@ -264,7 +264,13 @@ explore: customer_address_entity_varchar {}
 
 explore: customer_eav_attribute {}
 
-explore: customer_entity {}
+explore: customer_entity {
+  join: customer_register_source {
+    sql_on: ${customer_entity.entity_id} = ${customer_register_source.customer_id} ;;
+    relationship: one_to_one
+  }
+}
+
 
 explore: customer_entity_datetime {}
 
@@ -598,6 +604,10 @@ explore: sales_flat_order {
   join: customer_group {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_group_id} = ${customer_group.customer_group_id} ;;
+  }
+  join: sales_flat_quote {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.quote_id} = ${sales_flat_quote.entity_id} ;;
   }
 }
 

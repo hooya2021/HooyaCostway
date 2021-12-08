@@ -81,7 +81,7 @@ view: newsletter_subscriber {
       quarter,
       year
     ]
-    sql: ${TABLE}.subscriber_created_at ;;
+    sql: cast(subscriber_created_at as timestamp) ;;
   }
 
   dimension: subscriber_email {
