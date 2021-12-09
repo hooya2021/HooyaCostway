@@ -1,4 +1,5 @@
 connection: "haoya_bq"
+connection: "for_us_daily"
 
 # include all the views
 include: "/views/**/*.view"
@@ -406,7 +407,12 @@ explore: newsletter_queue_link {}
 
 explore: newsletter_queue_store_link {}
 
-explore: newsletter_subscriber {}
+explore: newsletter_subscriber {
+  join: sales_flat_order {
+    sql_on: ${newsletter_subscriber.customer_id} = ${sales_flat_order.customer_id} ;;
+    relationship: one_to_one
+  }
+}
 
 explore: newsletter_subscriber_info {}
 
@@ -800,3 +806,5 @@ explore: wishlist_item_stock_alert {
 explore: zeon_landingpage {}
 
 explore: zeon_landingpage_store {}
+
+explore: google_sheet_session {}
