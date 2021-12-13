@@ -1,5 +1,5 @@
 connection: "haoya_bq"
-connection: "for_us_daily"
+# connection: "for_us_daily"
 
 # include all the views
 include: "/views/**/*.view"
@@ -807,4 +807,5 @@ explore: zeon_landingpage {}
 
 explore: zeon_landingpage_store {}
 
-explore: google_sheet_session {}
+
+# explore: google_sheet_session {}
