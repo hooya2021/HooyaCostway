@@ -605,7 +605,7 @@ explore: sales_flat_order {
   }
   join: sales_flat_order_payment {
     relationship: one_to_one
-    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_payment.entity_id} ;;
+    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_payment.parent_id} ;;
   }
   join: customer_group {
     relationship: one_to_one

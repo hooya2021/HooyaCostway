@@ -124,7 +124,7 @@ view: newsletter_subscriber {
       quarter,
       year
     ]
-    sql: ${TABLE}.unsubscriber_created_at ;;
+    sql: cast(${TABLE}.unsubscriber_created_at as timestamp) ;;
   }
 
   measure: count {
