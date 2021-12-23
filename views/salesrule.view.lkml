@@ -157,6 +157,86 @@ view: salesrule {
     sql: ${TABLE}.uses_per_customer ;;
   }
 
+  dimension: coupon_attribute {
+    type: number
+    sql: ${TABLE}.coupon_attribute ;;
+  }
+  dimension: coupon_attribute_name {
+     case: {
+       when: {
+         sql: ${TABLE}.coupon_attribute = 1 ;;
+        label: "Deal Site"
+       }
+      when: {
+        sql: ${TABLE}.coupon_attribute = 2 ;;
+        label: "Sitewide"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute = 3;;
+        label: "Dropship"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute = 4 ;;
+        label: "Large Order"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=5 ;;
+        label: "Service"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=6 ;;
+        label: "Newsletter"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=7 ;;
+        label: "Register"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=8;;
+        label: "Publisher"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=9 ;;
+        label: "Social Media"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=10 ;;
+        label: "Offline"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=11;;
+        label: "Packaged Coupon"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=12 ;;
+        label: "Test Coupon"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=13 ;;
+        label: "Birthday Coupon"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=14 ;;
+        label: "Questionnaire"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=15 ;;
+        label: "App Coupon"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=16 ;;
+        label: "VIP Program"
+      }
+      when: {
+        sql: ${TABLE}.coupon_attribute=17 ;;
+        label: "Share Coupon"
+      }
+      else: "Other"
+     }
+     type: string
+    sql: ${TABLE}.coupon_attribute ;;
+    }
+
   measure: count {
     type: count
     drill_fields: [hostname, name]

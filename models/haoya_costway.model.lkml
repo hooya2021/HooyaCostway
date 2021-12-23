@@ -615,6 +615,10 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.quote_id} = ${sales_flat_quote.entity_id} ;;
   }
+  join: salesrule {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.coupon_rule_name} = ${salesrule.name} ;;
+  }
 }
 
 
