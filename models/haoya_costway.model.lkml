@@ -811,5 +811,6 @@ explore: zeon_landingpage {}
 
 explore: zeon_landingpage_store {}
 
+explore: customer_retention_analysis {}
 
 # explore: google_sheet_session {}

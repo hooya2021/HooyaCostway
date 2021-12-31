@@ -105,4 +105,29 @@ view: customer_entity {
   measure: registered_user {
     type: count
   }
+
+  dimension: customer_verify {
+    type: number
+    sql: ${TABLE}.customer_verify ;;
+  }
+
+  dimension: customer_verify_code {
+    case: {
+      when: {
+        sql: ${TABLE}.customer_verify=1 ;;
+        label: "老用户未验证"
+      }
+      when: {
+        sql: ${TABLE}.customer_verify=2 ;;
+        label: "新用户未验证"
+      }
+      when: {
+        sql: ${TABLE}.customer_verify=3 ;;
+        label: "新用户验证通过"
+      }
+      else: "其他"
+    }
+    type: string
+    sql: ${TABLE}.customer_verify ;;
+  }
 }
