@@ -254,6 +254,7 @@ view: sales_flat_order {
       week,
       day_of_week,
       month,
+      day_of_month,fiscal_month_num,
       quarter,
       year
     ]
