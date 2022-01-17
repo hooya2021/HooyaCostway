@@ -16,6 +16,9 @@ view: customer_entity {
       week,
       month,
       quarter,
+      fiscal_quarter_of_year,
+      quarter_of_year,
+      fiscal_month_num,
       year
     ]
     sql: ${TABLE}.created_at ;;

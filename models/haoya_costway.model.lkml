@@ -615,10 +615,19 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.quote_id} = ${sales_flat_quote.entity_id} ;;
   }
+  join: salesrule_coupon {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.coupon_code} = ${salesrule_coupon.code} ;;
+  }
   join: salesrule {
     relationship: one_to_one
-    sql_on: ${sales_flat_order.coupon_rule_name} = ${salesrule.name} ;;
+    sql_on: ${salesrule.rule_id} = ${salesrule_coupon.rule_id} ;;
   }
+  join: customer_retention_analysis {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.customer_id} = ${customer_retention_analysis.customer_id} ;;
+  }
+
 }
 
 
@@ -663,7 +672,17 @@ explore: sales_flat_quote_stock_email_record {}
 
 explore: sales_flat_resend {}
 
-explore: sales_flat_shipment {}
+explore: sales_flat_shipment {
+  join: sales_flat_order {
+    relationship: one_to_one
+    sql_on: ${sales_flat_shipment.order_id} = ${sales_flat_order.entity_id} ;;
+  }
+  join: sales_flat_shipment_track {
+    relationship: one_to_one
+    sql_on: ${sales_flat_shipment.entity_id}=${sales_flat_shipment_track.parent_id} ;;
+  }
+}
+
 
 explore: sales_flat_shipment_changelog {}
 

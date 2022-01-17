@@ -28,6 +28,16 @@ view: google_sheet_session {
     sql: ${TABLE}.weekday ;;
   }
 
+  dimension: users {
+    type: number
+    sql: ${TABLE}.users ;;
+  }
+
+  dimension: new_users {
+    type: number
+    sql: ${TABLE}.new_users ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
