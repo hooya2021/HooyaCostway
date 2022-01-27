@@ -597,7 +597,7 @@ explore: sales_flat_order {
   }
   join: sales_flat_order_address {
     relationship: one_to_one
-    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_address.entity_id} ;;
+    sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address.entity_id} ;;
   }
   join: sales_flat_order_item {
     relationship: one_to_many
