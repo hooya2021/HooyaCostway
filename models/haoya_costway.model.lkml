@@ -270,6 +270,10 @@ explore: customer_entity {
     sql_on: ${customer_entity.entity_id} = ${customer_register_source.customer_id} ;;
     relationship: one_to_one
   }
+  join: customer_group {
+    sql_on: ${customer_entity.group_id} = ${customer_group.customer_group_id} ;;
+    relationship: one_to_one
+  }
 }
 
 
@@ -615,13 +619,9 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.quote_id} = ${sales_flat_quote.entity_id} ;;
   }
-  join: salesrule_coupon {
-    relationship: one_to_one
-    sql_on: ${sales_flat_order.coupon_code} = ${salesrule_coupon.code} ;;
-  }
   join: salesrule {
     relationship: one_to_one
-    sql_on: ${salesrule.rule_id} = ${salesrule_coupon.rule_id} ;;
+    sql_on: ${sales_flat_order.coupon_rule_name} = ${salesrule.name} ;;
   }
   join: customer_retention_analysis {
     relationship: one_to_one
@@ -653,6 +653,11 @@ explore: sales_flat_quote {
     type: left_outer
     sql_on: ${sales_flat_quote.customer_group_id} = ${customer_group.customer_group_id} ;;
     relationship: many_to_one
+  }
+  join: sales_flat_quote_item {
+    type: left_outer
+    sql_on: ${sales_flat_quote.entity_id} = ${sales_flat_quote_item.quote_id} ;;
+    relationship: one_to_one
   }
 }
 
