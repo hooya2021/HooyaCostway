@@ -833,6 +833,51 @@ view: sales_flat_order {
     filters: [status: "refunded"]
   }
 
+ dimension: total_paid_group{
+   case: {
+     when: {
+       sql:${total_paid} <150 ;;
+      label: "<150"
+     }
+    when: {
+      sql: 150<=${total_paid} and ${total_paid} <200 ;;
+      label: "150-200"
+    }
+    when: {
+      sql: 200<=${total_paid} and ${total_paid}<400;;
+      label: "200-400"
+    }
+    when: {
+      sql: ${total_paid}>=400 ;;
+      label: ">400"
+    }
+   }
+  type: string
+  sql: ${total_paid} ;;
+ }
+
+  dimension: subtotal_group{
+    case: {
+      when: {
+        sql: ${subtotal}<150 ;;
+        label: "<150"
+      }
+      when: {
+        sql: 150<=${subtotal} and ${subtotal} <200 ;;
+        label: "150-200"
+      }
+      when: {
+        sql: 200<=${subtotal} and ${subtotal}<400;;
+        label: "200-400"
+      }
+      when: {
+        sql: ${subtotal}>=400 ;;
+        label: ">400"
+      }
+    }
+    type: string
+    sql: ${subtotal} ;;
+  }
 
   # ----- Sets of fields for drilling ------
   set: detail {
