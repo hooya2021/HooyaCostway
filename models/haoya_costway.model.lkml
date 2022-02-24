@@ -841,6 +841,8 @@ explore: wishlist_item_stock_alert {
   }
 }
 
+explore: sku_category {}
+
 explore: zeon_landingpage {}
 
 explore: zeon_landingpage_store {}

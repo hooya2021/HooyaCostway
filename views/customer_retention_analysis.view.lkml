@@ -66,6 +66,12 @@ view: customer_retention_analysis {
 
   }
 
+  dimension_group: date_after_user_created {
+    type: duration
+    sql_start: ${customer_created_time_raw} ;;
+    sql_end: ${first_order_time_raw} ;;
+  }
+
 
   dimension_group: customer_created_time {
     type: time
