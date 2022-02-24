@@ -608,6 +608,10 @@ explore: sales_flat_order {
     relationship: one_to_many
     sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_item.order_id} ;;
   }
+  join: sku_category {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order_item.sku} = ${sku_category.sku} ;;
+  }
   join: sales_flat_order_source {
     relationship: one_to_one
     sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_source.order_id} ;;
