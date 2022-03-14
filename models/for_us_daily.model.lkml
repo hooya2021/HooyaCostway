@@ -10,3 +10,4 @@ datagroup: for_us_daily_datagroup {
 persist_with: for_us_daily_datagroup
 
 explore: google_sheet_session {}
+explore: google_sheet_target {}

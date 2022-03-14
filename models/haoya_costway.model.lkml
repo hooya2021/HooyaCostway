@@ -421,6 +421,10 @@ explore: newsletter_subscriber {
     sql_on: ${newsletter_subscriber.customer_id} = ${sales_flat_order.customer_id} ;;
     relationship: one_to_one
   }
+  join: customer_entity {
+    sql_on:  ${newsletter_subscriber.subscriber_email} =  ${customer_entity.email};;
+    relationship: one_to_one
+  }
 }
 
 explore: newsletter_subscriber_info {}
@@ -641,6 +645,7 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_id} = ${customer_retention_analysis.customer_id} ;;
   }
+
 
 }
 

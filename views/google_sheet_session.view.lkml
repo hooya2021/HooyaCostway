@@ -38,6 +38,10 @@ view: google_sheet_session {
     sql: ${TABLE}.new_users ;;
   }
 
+dimension: bounce_rate {
+  type: number
+  sql: ${TABLE}.bounce_rate ;;
+}
   measure: count {
     type: count
     drill_fields: []
