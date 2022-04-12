@@ -645,6 +645,10 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_id} = ${customer_retention_analysis.customer_id} ;;
   }
+  join: customer_cumulative_sales {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.customer_email} = ${customer_cumulative_sales.customer_email} ;;
+  }
 
 
 }
@@ -678,6 +682,7 @@ explore: sales_flat_quote {
     sql_on: ${sales_flat_quote.entity_id} = ${sales_flat_quote_item.quote_id} ;;
     relationship: one_to_one
   }
+
 }
 
 explore: sales_flat_quote_address {}
