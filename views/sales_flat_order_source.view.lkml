@@ -37,10 +37,7 @@ view: sales_flat_order_source {
         sql: ${TABLE}.source_type="ipados" ;;
         label: "ipados"
         }
-      when: {
-        sql: ${TABLE}.source_type="app" ;;
-        label: "app"
-      }
+
       when: {
         sql: ${TABLE}.source_type="android" ;;
         label: "android"
