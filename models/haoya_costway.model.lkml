@@ -604,6 +604,10 @@ explore: sales_flat_order {
     relationship: many_to_one
     sql_on: ${sales_flat_order.customer_id} = ${customer_entity.entity_id} ;;
   }
+  join: customer_register_source {
+    sql_on: ${customer_entity.entity_id} = ${customer_register_source.customer_id} ;;
+    relationship: one_to_one
+  }
   join: sales_flat_order_address {
     relationship: one_to_one
     sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address.entity_id} ;;
