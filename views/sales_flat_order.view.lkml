@@ -836,20 +836,30 @@ view: sales_flat_order {
  dimension: total_paid_group{
    case: {
      when: {
-       sql:${total_paid} <150 ;;
-      label: "<150"
+       sql:${total_paid} <100;;
+      label: "<100"
      }
     when: {
-      sql: 150<=${total_paid} and ${total_paid} <200 ;;
-      label: "150-200"
+      sql: 100<=${total_paid} and ${total_paid} <200 ;;
+      label: "100-200"
     }
     when: {
-      sql: 200<=${total_paid} and ${total_paid}<400;;
-      label: "200-400"
+      sql: 200<=${total_paid} and ${total_paid}<300;;
+      label: "200-300"
+    }
+
+    when: {
+      sql: 300<=${total_paid} and ${total_paid}<500;;
+      label: "300-500"
+    }
+
+    when: {
+      sql: 500<=${total_paid} and ${total_paid}<1000;;
+      label: "500-1000"
     }
     when: {
-      sql: ${total_paid}>=400 ;;
-      label: ">400"
+      sql: ${total_paid}>=1000 ;;
+      label: ">1000"
     }
    }
   type: string

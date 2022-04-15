@@ -90,25 +90,47 @@ view: pop_arbitrary_order {
     filters: [period_selected: "Second Period"]
   }
 
+  measure: previous_period_orders {
+    view_label: "_PoP"
+    type: count_distinct
+    sql: ${increment_id};;
+    filters: [period_selected: "Second Period"]
+  }
+
+  measure: current_period_orders {
+    view_label: "_PoP"
+    type: count_distinct
+    sql: ${increment_id};;
+    filters: [period_selected: "First Period"]
+  }
+
+  measure: orders_pop_change {
+    view_label: "_PoP"
+    label: "Total orders period-over-period % change"
+    type: number
+    sql: (1.0 * ${current_period_orders}/ NULLIF(${previous_period_orders} ,0)) - 1 ;;
+    value_format_name: percent_2
+  }
+
   measure: sales_pop_change {
     view_label: "_PoP"
     label: "Total sales period-over-period % change"
     type: number
-    sql: (1.0 * ${current_period_sales} / NULLIF(${previous_period_sales} ,0)) - 1 ;;
+    sql: (1.0 * ${current_period_sales}/ NULLIF(${previous_period_sales} ,0)) - 1 ;;
     value_format_name: percent_2
   }
 
   measure: current_period_qty {
     view_label: "_PoP"
-    type: count_distinct
-    sql: ${entity_id} ;;
+    type: sum
+    sql: ${total_qty_ordered} ;;
     filters: [period_selected: "First Period"]
   }
 
   measure: previous_period_qty {
     view_label: "_PoP"
-    type: count_distinct
-    sql: ${entity_id} ;;
+    type: sum
+    sql: ${total_qty_ordered} ;;
     filters: [period_selected: "Second Period"]
   }
 
@@ -141,6 +163,10 @@ explore: pop_arbitrary_order {
     sql_on: ${pop_arbitrary_order.entity_id}=${sales_flat_order_item.order_id} ;;
     relationship: one_to_many
   }
+  join: sku_category {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order_item.sku} = ${sku_category.sku} ;;
+  }
   join: catalog_category_product {
     type: left_outer
     sql_on: ${sales_flat_order_item.product_id}=${catalog_category_product.product_id} ;;
@@ -157,8 +183,7 @@ explore: pop_arbitrary_order {
     relationship: many_to_one
   }
   join: customer_group {
-    type: left_outer
-    sql_on: ${customer_entity.group_id}=${customer_group.customer_group_id} ;;
-    relationship: many_to_one
+    relationship: one_to_one
+    sql_on: ${pop_arbitrary_order.customer_group_id} = ${customer_group.customer_group_id} ;;
   }
 }
