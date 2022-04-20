@@ -651,7 +651,7 @@ explore: sales_flat_order {
   }
   join: customer_cumulative_sales {
     relationship: one_to_one
-    sql_on: ${sales_flat_order.customer_email} = ${customer_cumulative_sales.customer_email} ;;
+    sql_on: ${sales_flat_order.customer_email} = ${customer_cumulative_sales.customer_email};;
   }
 
 
@@ -684,6 +684,16 @@ explore: sales_flat_quote {
   join: sales_flat_quote_item {
     type: left_outer
     sql_on: ${sales_flat_quote.entity_id} = ${sales_flat_quote_item.quote_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_entity{
+    type: left_outer
+    sql_on: ${sales_flat_quote.customer_id} = ${customer_entity.entity_id} ;;
+    relationship: one_to_one
+  }
+  join: sales_flat_order{
+    type: left_outer
+    sql_on: ${sales_flat_quote.customer_id} = ${sales_flat_order.customer_id} ;;
     relationship: one_to_one
   }
 
@@ -865,6 +875,15 @@ explore: zeon_landingpage {}
 
 explore: zeon_landingpage_store {}
 
-explore: customer_retention_analysis {}
+explore: customer_retention_analysis {
+  join: sales_flat_order {
+    sql_on: ${customer_retention_analysis.customer_id}= ${sales_flat_order.customer_id} ;;
+    relationship: one_to_many
+  }
+  join: customer_entity {
+    sql_on: ${customer_retention_analysis.customer_id}= ${customer_entity.entity_id} ;;
+    relationship: one_to_one
+  }
+}
 
 # explore: google_sheet_session {}

@@ -1,6 +1,6 @@
 view: customer_retention_analysis {
   derived_table: {
-    sql: SELECT sales_flat_order.customer_id,min(sales_flat_order.increment_id) as first_order_number,
+    sql: SELECT sales_flat_order.customer_id,status,min(sales_flat_order.increment_id) as first_order_number,
       max(sales_flat_order.increment_id) as latest_order_number,
       min(sales_flat_order.created_at) as first_order_time,
       max(sales_flat_order.created_at) as latest_order_time,
@@ -8,9 +8,9 @@ view: customer_retention_analysis {
       newsletter_subscriber.subscriber_created_at as subscriber_created_at
       FROM `alidbtogcp.costway_com.sales_flat_order` as sales_flat_order
 
-      right join `alidbtogcp.costway_com.customer_entity` as customer_entity on customer_entity.entity_id = sales_flat_order.customer_id
-      right join `alidbtogcp.costway_com.newsletter_subscriber` as newsletter_subscriber on newsletter_subscriber.customer_id = sales_flat_order.customer_id
-      GROUP BY customer_id,customer_created_time,subscriber_created_at
+      left join `alidbtogcp.costway_com.customer_entity` as customer_entity on customer_entity.entity_id = sales_flat_order.customer_id
+      left join `alidbtogcp.costway_com.newsletter_subscriber` as newsletter_subscriber on newsletter_subscriber.customer_id = sales_flat_order.customer_id
+      GROUP BY customer_id,customer_created_time,subscriber_created_at,status
        ;;
   }
 
@@ -22,6 +22,11 @@ view: customer_retention_analysis {
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;
+  }
+
+  dimension: order_status {
+    type: string
+    sql: ${TABLE}.status ;;
   }
 
   dimension: first_order_number {
@@ -53,23 +58,23 @@ view: customer_retention_analysis {
       quarter,
       year
     ]
-    sql: ${TABLE}.latest_order_time ;;
+    sql:${TABLE}.latest_order_time ;;
   }
 
   dimension_group: return_after_user_created {
 
     type: duration
 
-    sql_start: ${customer_created_time_raw} ;;
+    sql_start: ${TABLE}.customer_created_time ;;
 
-    sql_end: ${latest_order_time_raw} ;;
+    sql_end: ${TABLE}.latest_order_time ;;
 
   }
 
   dimension_group: date_after_user_created {
     type: duration
-    sql_start: ${customer_created_time_raw} ;;
-    sql_end: ${first_order_time_raw} ;;
+    sql_start: ${TABLE}.customer_created_time ;;
+    sql_end: ${TABLE}.first_order_time  ;;
   }
 
 
