@@ -90,6 +90,20 @@ view: pop_arbitrary_order {
     filters: [period_selected: "Second Period"]
   }
 
+  measure: current_period_subtotal {
+    view_label: "_PoP"
+    type: sum
+    sql: ${subtotal};;
+    filters: [period_selected: "First Period"]
+  }
+
+  measure: previous_period_subtotal {
+    view_label: "_PoP"
+    type: sum
+    sql: ${subtotal};;
+    filters: [period_selected: "Second Period"]
+  }
+
   measure: previous_period_orders {
     view_label: "_PoP"
     type: count_distinct
