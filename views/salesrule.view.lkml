@@ -225,7 +225,7 @@ view: salesrule {
       }
       when: {
         sql: ${TABLE}.coupon_attribute=16 ;;
-        label: "VIP Program"
+        label: "TK Living"
       }
       when: {
         sql: ${TABLE}.coupon_attribute=17 ;;
