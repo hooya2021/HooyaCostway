@@ -425,6 +425,18 @@ explore: newsletter_subscriber {
     sql_on:  ${newsletter_subscriber.subscriber_email} =  ${customer_entity.email};;
     relationship: one_to_one
   }
+  join: sales_flat_order_source {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_source.order_id} ;;
+  }
+  join: salesrule_coupon {
+    relationship: one_to_one
+    sql_on: upper(${sales_flat_order.coupon_code}) = upper(${salesrule_coupon.code} );;
+  }
+  join: salesrule {
+    relationship: one_to_many
+    sql_on: ${salesrule_coupon.rule_id}= ${salesrule.rule_id};;
+  }
 }
 
 explore: newsletter_subscriber_info {}
