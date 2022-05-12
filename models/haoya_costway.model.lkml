@@ -785,7 +785,20 @@ explore: salesrule_coupon_usage {}
 
 explore: salesrule_customer {}
 
-explore: salesrule_customer_coupon {}
+explore: salesrule_customer_coupon {
+  join: customer_entity {
+    sql_on: ${salesrule_customer_coupon.customer_id} = ${customer_entity.entity_id} ;;
+    relationship: one_to_one
+  }
+  join: salesrule_coupon {
+    sql_on: ${salesrule_coupon.coupon_id} = ${salesrule_customer_coupon.coupon_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_group {
+    sql_on: ${customer_entity.group_id} = ${customer_group.customer_group_id} ;;
+    relationship: one_to_one
+  }
+}
 
 explore: salesrule_customer_group {
   join: customer_group {
