@@ -126,7 +126,7 @@ view: customer_entity {
       }
       when: {
         sql: ${TABLE}.customer_verify=3 ;;
-        label: "新用户验证通过"
+        label: "新(老)用户验证通过"
       }
       else: "其他"
     }
