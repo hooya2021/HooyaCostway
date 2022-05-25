@@ -231,6 +231,10 @@ view: salesrule {
         sql: ${TABLE}.coupon_attribute=17 ;;
         label: "Share Coupon"
       }
+      when: {
+        sql: ${TABLE}.coupon_attribute=18 ;;
+        label: "Costway Plus+"
+      }
       else: "Other"
      }
      type: string
