@@ -910,5 +910,7 @@ explore: customer_retention_analysis {
     relationship: one_to_one
   }
 }
+explore: customer_plus_change_record {}
+explore: customer_plus_order {}
 
 # explore: google_sheet_session {}
