@@ -651,7 +651,7 @@ explore: sales_flat_order {
 
   join: salesrule_coupon {
     relationship: one_to_one
-    sql_on: upper(${sales_flat_order.coupon_code}) = upper(${salesrule_coupon.code} );;
+    sql_on: upper(replace(${sales_flat_order.coupon_code}," ","")) = upper(${salesrule_coupon.code} );;
   }
   join: salesrule {
     relationship: one_to_many
