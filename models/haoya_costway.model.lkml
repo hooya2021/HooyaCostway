@@ -910,7 +910,19 @@ explore: customer_retention_analysis {
     relationship: one_to_one
   }
 }
-explore: customer_plus_change_record {}
+explore: customer_plus_change_record {
+  join: customer_entity {
+    sql_on: ${customer_plus_change_record.customer_id} = ${customer_entity.entity_id};;
+    relationship: one_to_one
+  }
+}
 explore: customer_plus_order {}
+explore: plus_customer {
+  join: sales_flat_order {
+    sql_on: ${plus_customer.customer_id}=${sales_flat_order.customer_id} ;;
+    relationship: one_to_one
+  }
+}
+
 
 # explore: google_sheet_session {}
