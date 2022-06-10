@@ -41,6 +41,17 @@ dimension_group: created_at {
     sql_end: cast(${TABLE}.created_at as timestamp);;
   }
 
+  dimension: customer_code {
+    type: string
+    case: {
+     when: {
+       sql: ${days_date_between_plus_created}<0 ;;
+      label: "Old Customer"
+     }
+    else: "New Customer"
+    }
+  }
+
 
 set: detail {
   fields: [plus_created_at_time, email, customer_verify, created_at_time]
