@@ -25,6 +25,29 @@ view: customer_entity {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension_group: plus_exp_date {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      hour_of_day,
+      date,
+      week,
+      month,
+      quarter,
+      fiscal_quarter_of_year,
+      quarter_of_year,
+      fiscal_month_num,
+      year
+    ]
+    sql: cast(${TABLE}.plus_exp_date as timestamp);;
+  }
+
+  dimension: plus_no {
+    type: string
+    sql: ${TABLE}.plus_no ;;
+  }
+
   dimension: customer_phone {
     type: string
     sql: ${TABLE}.customer_phone ;;
