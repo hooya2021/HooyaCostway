@@ -920,7 +920,13 @@ explore: customer_plus_change_record {
     relationship: one_to_one
   }
 }
-explore: customer_plus_order {}
+explore: customer_plus_order {
+  join: customer_entity {
+    sql_on: ${customer_entity.entity_id} = ${customer_plus_order.customer_id} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+}
 explore: plus_customer {
   join: sales_flat_order {
     sql_on: ${plus_customer.customer_id}=${sales_flat_order.customer_id} ;;

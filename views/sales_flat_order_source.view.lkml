@@ -28,7 +28,7 @@ view: sales_flat_order_source {
     case: {
       when: {
         sql: ${TABLE}.source_type="mobile" ;;
-        label: "Mobile"}
+        label: "mobile"}
       when: {
         sql: ${TABLE}.source_type="ios" ;;
         label: "ios"
@@ -42,7 +42,7 @@ view: sales_flat_order_source {
         sql: ${TABLE}.source_type="android" ;;
         label: "android"
       }
-      else: "PC"
+      else: "pc"
       }
     }
 
