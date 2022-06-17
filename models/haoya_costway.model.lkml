@@ -909,6 +909,10 @@ explore: customer_retention_analysis {
     sql_on: ${customer_retention_analysis.customer_id}= ${customer_entity.entity_id} ;;
     relationship: one_to_one
   }
+  join: sales_flat_order_source {
+    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_source.order_id} ;;
+    relationship: one_to_one
+  }
 }
 explore: customer_plus_change_record {
   join: customer_entity {
