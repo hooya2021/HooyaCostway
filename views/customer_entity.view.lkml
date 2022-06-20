@@ -157,4 +157,23 @@ view: customer_entity {
     type: string
     sql: ${TABLE}.customer_verify ;;
   }
+
+  dimension: phone_verify {
+    type: number
+    sql: ${TABLE}.phone_verify ;;
+  }
+
+  dimension: phone_verify_code {
+    case: {
+      when: {
+        sql: ${TABLE}.phone_verify=0 ;;
+        label: "手机号未验证"
+      }
+      when: {
+        sql: ${TABLE}.phone_verify =1 ;;
+        label: "手机号已验证"
+      }
+      else: "其他"
+    }
+  }
 }
