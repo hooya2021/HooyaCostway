@@ -461,6 +461,11 @@ view: sales_flat_order_item {
     sql: ${TABLE}.weight ;;
   }
 
+  dimension: total_paid {
+    type: number
+    sql: ${row_total}-${discount_amount}+${tax_amount} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [hostname, name]

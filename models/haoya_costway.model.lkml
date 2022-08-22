@@ -666,7 +666,6 @@ explore: sales_flat_order {
     sql_on: ${sales_flat_order.customer_email} = ${customer_cumulative_sales.customer_email};;
   }
 
-
 }
 
 
@@ -941,6 +940,8 @@ explore: plus_customer {
     relationship: one_to_one
   }
 }
+
+explore: sku_sales_rank {}
 
 
 # explore: google_sheet_session {}
