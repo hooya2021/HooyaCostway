@@ -279,6 +279,10 @@ explore: customer_entity {
     sql_on: ${customer_entity.group_id} = ${customer_group.customer_group_id} ;;
     relationship: one_to_one
   }
+  join: newsletter_subscriber {
+    sql_on: ${customer_entity.entity_id} = ${newsletter_subscriber.customer_id} ;;
+    relationship: one_to_one
+  }
 }
 
 
@@ -613,7 +617,7 @@ explore: sales_flat_invoice_item {}
 
 explore: sales_flat_order {
   join: customer_entity {
-    relationship: many_to_one
+    relationship: one_to_one
     sql_on: ${sales_flat_order.customer_id} = ${customer_entity.entity_id} ;;
   }
   join: customer_register_source {
@@ -942,6 +946,24 @@ explore: plus_customer {
 }
 
 explore: sku_sales_rank {}
-
+explore: customer_serial {
+  join: sales_flat_order {
+    sql_on: ${customer_serial.email} = ${sales_flat_order.customer_email} ;;
+    relationship: one_to_one
+    type: left_outer
+  }
+  join: sales_flat_quote {
+    sql_on: ${customer_serial.email} = ${sales_flat_quote.customer_email} ;;
+    relationship: one_to_one
+  }
+  join: sales_flat_quote_item {
+    sql_on: ${sales_flat_quote.entity_id} = ${sales_flat_quote_item.quote_id} ;;
+    relationship: one_to_one
+  }
+  join: sales_flat_order_item {
+    relationship: one_to_many
+    sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_item.order_id} ;;
+  }
+}
 
 # explore: google_sheet_session {}

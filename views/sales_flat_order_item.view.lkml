@@ -480,4 +480,9 @@ view: sales_flat_order_item {
     type: count_distinct
     sql: ${item_id} ;;
   }
+
+  dimension: item_subtotal {
+    type: number
+    sql: ${price}*${qty_ordered} ;;
+  }
 }
