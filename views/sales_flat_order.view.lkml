@@ -258,7 +258,7 @@ view: sales_flat_order {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;; allow_fill: no
+    sql: ${TABLE}.created_at ;;
   }
 
   dimension: day_of_week {

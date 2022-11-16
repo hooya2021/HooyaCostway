@@ -22,7 +22,7 @@ view: customer_entity {
       fiscal_month_num,
       year
     ]
-    sql: ${TABLE}.created_at ;;allow_fill: no
+    sql: ${TABLE}.created_at ;;
   }
 
   dimension: created_at {
