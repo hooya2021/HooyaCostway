@@ -374,7 +374,16 @@ explore: index_process_event {}
 
 explore: ipsecurity_log {}
 
-explore: log_customer {}
+explore: log_customer {
+  join: customer_entity {
+    sql_on: ${log_customer.customer_id}= ${customer_entity.entity_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_register_source {
+    sql_on: ${customer_register_source.customer_id} = ${customer_entity.entity_id} ;;
+    relationship: one_to_one
+  }
+}
 
 explore: log_quote {}
 
@@ -669,6 +678,10 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_email} = ${customer_cumulative_sales.customer_email};;
   }
+  join: newsletter_subscriber {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.customer_email} = ${newsletter_subscriber.subscriber_email} ;;
+  }
 
 }
 
@@ -914,6 +927,10 @@ explore: customer_retention_analysis {
   }
   join: sales_flat_order_source {
     sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_source.order_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_group {
+    sql_on: ${customer_entity.group_id} = ${customer_group.customer_group_id} ;;
     relationship: one_to_one
   }
 }

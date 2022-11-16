@@ -17,6 +17,10 @@ view: log_customer {
     sql: ${TABLE}.log_id ;;
   }
 
+  dimension: login_tim {
+    type: date_time
+    sql: ${TABLE}.login_at ;;
+  }
   dimension_group: login {
     type: time
     timeframes: [
@@ -59,6 +63,7 @@ view: log_customer {
     type: number
     sql: ${TABLE}.visitor_id ;;
   }
+
 
   measure: count {
     type: count
