@@ -682,6 +682,10 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_email} = ${newsletter_subscriber.subscriber_email} ;;
   }
+  join:aw_points_transaction_orderspend {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.increment_id} = ${aw_points_transaction_orderspend.order_increment_id} ;;
+  }
 
 }
 
@@ -795,7 +799,20 @@ explore: sales_shipping_aggregated_order {}
 
 explore: salesrule {}
 
-explore: salesrule_coupon {}
+explore: salesrule_coupon {
+  join: salesrule_customer_coupon {
+    sql_on: ${salesrule_coupon.coupon_id} = ${salesrule_customer_coupon.coupon_id} ;;
+    relationship: one_to_one
+  }
+  join: salesrule_customer_sign_coupon {
+    sql_on: ${salesrule_coupon.coupon_id} = ${salesrule_customer_sign_coupon.coupon_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_entity {
+    sql_on: ${salesrule_customer_sign_coupon.customer_id} = ${customer_entity.entity_id}   ;;
+    relationship: one_to_one
+  }
+}
 
 explore: salesrule_coupon_usage {}
 
@@ -812,6 +829,10 @@ explore: salesrule_customer_coupon {
   }
   join: customer_group {
     sql_on: ${customer_entity.group_id} = ${customer_group.customer_group_id} ;;
+    relationship: one_to_one
+  }
+  join: salesrule {
+    sql_on: ${salesrule_coupon.rule_id}= ${salesrule.rule_id};;
     relationship: one_to_one
   }
 }

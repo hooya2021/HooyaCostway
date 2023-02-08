@@ -889,6 +889,11 @@ view: sales_flat_order {
     sql: ${subtotal} ;;
   }
 
+  dimension: customer_name {
+    type: string
+    sql: upper(concat(${customer_firstname}," ",${customer_lastname})) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

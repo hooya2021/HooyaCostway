@@ -1,6 +1,6 @@
 view: customer_retention_analysis {
   derived_table: {
-    sql: SELECT sales_flat_order.customer_id,status,min(sales_flat_order.increment_id) as first_order_number,
+    sql: SELECT sales_flat_order.customer_id,min(sales_flat_order.increment_id) as first_order_number,
       max(sales_flat_order.increment_id) as latest_order_number,
       min(sales_flat_order.created_at) as first_order_time,
       max(sales_flat_order.created_at) as latest_order_time,
@@ -10,7 +10,7 @@ view: customer_retention_analysis {
 
       left join `alidbtogcp.costway_com.customer_entity` as customer_entity on customer_entity.entity_id = sales_flat_order.customer_id
       left join `alidbtogcp.costway_com.newsletter_subscriber` as newsletter_subscriber on newsletter_subscriber.customer_id = sales_flat_order.customer_id
-      GROUP BY customer_id,customer_created_time,subscriber_created_at,status
+      GROUP BY customer_id,customer_created_time,subscriber_created_at
        ;;
   }
 
@@ -77,6 +77,11 @@ view: customer_retention_analysis {
     sql_end: ${TABLE}.first_order_time  ;;
   }
 
+  dimension_group: date_after_last_order {
+    type: duration
+    sql_start: ${TABLE}.latest_order_time ;;
+    sql_end:TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), SECOND, 'America/Los_Angeles');;
+  }
 
   dimension_group: customer_created_time {
     type: time

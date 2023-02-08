@@ -26,7 +26,7 @@ view: aw_points_transaction_orderspend {
 
   dimension: points_to_money {
     type: number
-    sql: ${TABLE}.points_to_money ;;
+    sql: -${TABLE}.points_to_money ;;
   }
 
   dimension: transaction_id {
