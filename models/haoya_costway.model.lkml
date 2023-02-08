@@ -662,13 +662,9 @@ explore: sales_flat_order {
     sql_on: ${sales_flat_order.quote_id} = ${sales_flat_quote.entity_id} ;;
   }
 
-  join: salesrule_coupon {
-    relationship: one_to_one
-    sql_on: upper(${sales_flat_order.coupon_code}) = upper(${salesrule_coupon.code} );;
-  }
   join: salesrule {
     relationship: one_to_many
-    sql_on: ${salesrule_coupon.rule_id}= ${salesrule.rule_id};;
+    sql_on: ${sales_flat_order.applied_rule_ids} = ${salesrule.rule_id};;
   }
   join: customer_retention_analysis {
     relationship: one_to_one

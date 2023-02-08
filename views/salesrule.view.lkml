@@ -93,8 +93,8 @@ view: salesrule {
   }
 
   dimension: rule_id {
-    type: number
-    sql: ${TABLE}.rule_id ;;
+    type: string
+    sql: cast(${TABLE}.rule_id as string);;
   }
 
   dimension: simple_action {
