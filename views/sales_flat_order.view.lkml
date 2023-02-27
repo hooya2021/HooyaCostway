@@ -252,6 +252,7 @@ view: sales_flat_order {
       hour6,
       date,
       week,
+      week_of_year,
       day_of_week,
       month,
       day_of_month,fiscal_month_num,
@@ -456,8 +457,6 @@ view: sales_flat_order {
     type: string
     sql: ${TABLE}.increment_id ;;
   }
-
-
   dimension: is_virtual {
     type: number
     sql: ${TABLE}.is_virtual ;;

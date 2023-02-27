@@ -283,6 +283,10 @@ explore: customer_entity {
     sql_on: ${customer_entity.entity_id} = ${newsletter_subscriber.customer_id} ;;
     relationship: one_to_one
   }
+  join: sales_flat_order {
+    sql_on: ${customer_entity.entity_id} = ${sales_flat_order.customer_id} ;;
+    relationship: one_to_one
+  }
 }
 
 
@@ -437,6 +441,10 @@ explore: newsletter_subscriber {
   join: customer_entity {
     sql_on:  ${newsletter_subscriber.subscriber_email} =  ${customer_entity.email};;
     relationship: one_to_one
+  }
+  join: customer_group {
+    relationship: one_to_one
+    sql_on: ${customer_entity.group_id}=${customer_group.customer_group_id} ;;
   }
   join: sales_flat_order_source {
     relationship: one_to_one
@@ -712,6 +720,10 @@ explore: sales_flat_quote {
   join: sales_flat_quote_item {
     type: left_outer
     sql_on: ${sales_flat_quote.entity_id} = ${sales_flat_quote_item.quote_id} ;;
+    relationship: one_to_one
+  }
+  join: sku_category {
+    sql_on: ${sku_category.sku}=${sales_flat_quote_item.sku} ;;
     relationship: one_to_one
   }
   join: customer_entity{

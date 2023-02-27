@@ -485,4 +485,9 @@ view: sales_flat_order_item {
     type: number
     sql: ${price}*${qty_ordered} ;;
   }
+
+  dimension: product_tag {
+    type: string
+    sql: ${TABLE}.product_tag ;;
+  }
 }
