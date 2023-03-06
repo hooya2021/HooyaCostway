@@ -284,7 +284,7 @@ explore: customer_entity {
     relationship: one_to_one
   }
   join: sales_flat_order {
-    sql_on: ${customer_entity.entity_id} = ${sales_flat_order.customer_id} ;;
+    sql_on: ${customer_entity.email} = ${sales_flat_order.customer_email} ;;
     relationship: one_to_one
   }
 }
@@ -987,6 +987,10 @@ explore: plus_customer {
   }
   join: customer_plus_order {
     sql_on:  ${plus_customer.customer_id}= ${customer_plus_order.customer_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_entity {
+    sql_on:${plus_customer.customer_id} = ${customer_entity.entity_id}  ;;
     relationship: one_to_one
   }
 }
