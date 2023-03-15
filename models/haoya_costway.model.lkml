@@ -287,6 +287,10 @@ explore: customer_entity {
     sql_on: ${customer_entity.email} = ${sales_flat_order.customer_email} ;;
     relationship: one_to_one
   }
+  join: twilio_sms {
+    sql_on: ${customer_entity.entity_id} = ${twilio_sms.customer_id} ;;
+    relationship: one_to_one
+  }
 }
 
 
