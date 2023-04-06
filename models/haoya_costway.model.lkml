@@ -713,7 +713,20 @@ explore: sales_flat_order_payment {}
 
 explore: sales_flat_order_source {}
 
-explore: sales_flat_order_status_history {}
+explore: sales_flat_order_status_history {
+  join: sales_flat_order {
+    sql_on: ${sales_flat_order_status_history.parent_id} = ${sales_flat_order.entity_id};;
+    relationship: one_to_one
+  }
+  join: customer_entity {
+    sql_on: ${sales_flat_order.customer_id} = ${customer_entity.entity_id} ;;
+    relationship: one_to_one
+  }
+  join: customer_group {
+    sql_on: ${customer_entity.group_id}=${customer_group.customer_group_id} ;;
+    relationship: one_to_one
+  }
+}
 
 explore: sales_flat_quote {
   join: customer_group {
@@ -740,7 +753,11 @@ explore: sales_flat_quote {
     sql_on: ${sales_flat_quote.customer_id} = ${sales_flat_order.customer_id} ;;
     relationship: one_to_one
   }
-
+  join: customer_retention_analysis {
+    type: left_outer
+    sql_on: ${customer_retention_analysis.customer_id} = ${sales_flat_quote.customer_id};;
+    relationship: one_to_one
+  }
 }
 
 explore: sales_flat_quote_address {}

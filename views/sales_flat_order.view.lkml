@@ -868,20 +868,28 @@ view: sales_flat_order {
   dimension: subtotal_group{
     case: {
       when: {
-        sql: ${subtotal}<150 ;;
-        label: "<150"
+        sql: ${subtotal}<100 ;;
+        label: "<100"
       }
       when: {
-        sql: 150<=${subtotal} and ${subtotal} <200 ;;
-        label: "150-200"
+        sql: 100<=${subtotal} and ${subtotal} <200 ;;
+        label: "100-200"
       }
       when: {
-        sql: 200<=${subtotal} and ${subtotal}<400;;
-        label: "200-400"
+        sql: 200<=${subtotal} and ${subtotal}<300;;
+        label: "200-300"
       }
       when: {
-        sql: ${subtotal}>=400 ;;
-        label: ">400"
+        sql: 300<=${subtotal} and ${subtotal}<500;;
+        label: "300-500"
+      }
+      when: {
+        sql: 500<=${subtotal} and ${subtotal}<1000;;
+        label: "500-1000"
+      }
+      when: {
+        sql: ${subtotal}>=1000 ;;
+        label: ">1000"
       }
     }
     type: string

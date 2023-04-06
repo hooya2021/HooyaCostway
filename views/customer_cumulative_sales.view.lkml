@@ -43,8 +43,24 @@ view: customer_cumulative_sales {
         label: "500-1000"
       }
       when: {
-        sql: ${turnover_value}>=1000;;
-        label: ">1000"
+        sql: ${turnover_value}>=1000 and ${turnover_value}<2000;;
+        label: "1000-2000"
+      }
+      when: {
+        sql: ${turnover_value}>=2000 and ${turnover_value}<3000;;
+        label: "2000-3000"
+      }
+      when: {
+        sql: ${turnover_value}>=3000 and ${turnover_value}<4000;;
+        label: "3000-4000"
+      }
+      when: {
+        sql: ${turnover_value}>=4000 and ${turnover_value}<5000;;
+        label: "4000-5000"
+      }
+      when: {
+        sql: ${turnover_value}>=5000 ;;
+        label: ">5000"
       }
     }
     type: string
