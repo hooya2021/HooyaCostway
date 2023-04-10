@@ -20,6 +20,11 @@ dimension: email {
   sql: ${TABLE}.email ;;
 }
 
+dimension: email_transfer {
+  type: string
+  sql: lower(${email}) ;;
+}
+
 dimension: customer_id {
 type: string
 sql: ${TABLE}.entity_id ;;
