@@ -286,6 +286,11 @@ view: sales_flat_order {
     sql: ${TABLE}.customer_email ;;
   }
 
+  dimension: customer_email_transfer {
+    type: string
+    sql: lower(${customer_email}) ;;
+  }
+
   measure: customer_email_count {
     type: number
     sql: count(${customer_email}) ;;
