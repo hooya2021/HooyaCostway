@@ -68,6 +68,11 @@ view: customer_entity {
     sql: ${TABLE}.email ;;
   }
 
+  dimension: email_transfer {
+    type: string
+    sql:lower(${email});;
+  }
+
   dimension: entity_id {
     type: number
     primary_key: yes

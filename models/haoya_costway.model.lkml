@@ -639,7 +639,11 @@ explore: sales_flat_invoice_item {}
 explore: sales_flat_order {
   join: customer_entity {
     relationship: one_to_one
-    sql_on: ${sales_flat_order.customer_id} = ${customer_entity.entity_id} ;;
+    sql_on: ${sales_flat_order.customer_email_transfer} = ${customer_entity.email_transfer} ;;
+  }
+  join: customer_total_order_num {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.customer_email_transfer} = ${customer_total_order_num.customer_email_transfer} ;;
   }
   join: customer_register_source {
     sql_on: ${customer_entity.entity_id} = ${customer_register_source.customer_id} ;;
@@ -719,12 +723,16 @@ explore: sales_flat_order_status_history {
     relationship: one_to_one
   }
   join: customer_entity {
-    sql_on: ${sales_flat_order.customer_id} = ${customer_entity.entity_id} ;;
+    sql_on: ${sales_flat_order.customer_email_transfer} = ${customer_entity.email_transfer} ;;
     relationship: one_to_one
   }
   join: customer_group {
     sql_on: ${customer_entity.group_id}=${customer_group.customer_group_id} ;;
     relationship: one_to_one
+  }
+  join: sales_flat_order_address {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address.entity_id} ;;
   }
 }
 
