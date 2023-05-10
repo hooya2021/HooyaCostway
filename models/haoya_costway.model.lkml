@@ -680,7 +680,7 @@ explore: sales_flat_order {
   join: customer_group_order {
     from: customer_group
     relationship: one_to_one
-    sql_on: ${sales_flat_order.customer_group_id} = ${customer_group_order.customer_group_id}.customer_group_id} ;;
+    sql_on: ${sales_flat_order.customer_group_id} = ${customer_group_order.customer_group_id} ;;
   }
   join: sales_flat_quote {
     relationship: one_to_one
