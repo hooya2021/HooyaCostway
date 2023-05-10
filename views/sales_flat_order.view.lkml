@@ -885,8 +885,12 @@ view: sales_flat_order {
         label: "200-300"
       }
       when: {
-        sql: 300<=${subtotal} and ${subtotal}<500;;
-        label: "300-500"
+        sql: 300<=${subtotal} and ${subtotal}<400;;
+        label: "300-400"
+      }
+      when: {
+        sql: 400<=${subtotal} and ${subtotal}<500;;
+        label: "400-500"
       }
       when: {
         sql: 500<=${subtotal} and ${subtotal}<1000;;

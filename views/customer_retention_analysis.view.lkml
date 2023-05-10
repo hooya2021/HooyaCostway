@@ -1,6 +1,6 @@
 view: customer_retention_analysis {
   derived_table: {
-    sql: SELECT sales_flat_order.customer_id,min(sales_flat_order.increment_id) as first_order_number,
+    sql: SELECT sales_flat_order.customer_id,sales_flat_order.customer_email,min(sales_flat_order.increment_id) as first_order_number,
       max(sales_flat_order.increment_id) as latest_order_number,
       min(sales_flat_order.created_at) as first_order_time,
       max(sales_flat_order.created_at) as latest_order_time,
@@ -10,7 +10,7 @@ view: customer_retention_analysis {
 
       left join `alidbtogcp.costway_com.customer_entity` as customer_entity on customer_entity.entity_id = sales_flat_order.customer_id
       left join `alidbtogcp.costway_com.newsletter_subscriber` as newsletter_subscriber on newsletter_subscriber.customer_id = sales_flat_order.customer_id
-      GROUP BY customer_id,customer_created_time,subscriber_created_at
+      GROUP BY customer_id,customer_created_time,subscriber_created_at,customer_email
        ;;
   }
 
@@ -22,6 +22,16 @@ view: customer_retention_analysis {
   dimension: customer_id {
     type: number
     sql: ${TABLE}.customer_id ;;
+  }
+
+  dimension: customer_email {
+    type: string
+    sql: ${TABLE}.customer_email ;;
+  }
+
+  dimension: customer_email_transfer {
+    type: string
+    sql: lower(${customer_email}) ;;
   }
 
   dimension: order_status {

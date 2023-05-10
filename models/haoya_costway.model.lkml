@@ -291,6 +291,10 @@ explore: customer_entity {
     sql_on: ${customer_entity.entity_id} = ${twilio_sms.customer_id} ;;
     relationship: one_to_one
   }
+  join: sales_flat_order_address {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address.entity_id} ;;
+  }
 }
 
 
@@ -641,6 +645,10 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_email_transfer} = ${customer_entity.email_transfer} ;;
   }
+  join: customer_group {
+    relationship: one_to_one
+    sql_on: ${customer_entity.group_id}=${customer_group.customer_group_id} ;;
+  }
   join: customer_total_order_num {
     relationship: one_to_one
     sql_on: ${sales_flat_order.customer_email_transfer} = ${customer_total_order_num.customer_email_transfer} ;;
@@ -669,9 +677,10 @@ explore: sales_flat_order {
     relationship: one_to_one
     sql_on: ${sales_flat_order.entity_id} = ${sales_flat_order_payment.parent_id} ;;
   }
-  join: customer_group {
+  join: customer_group_order {
+    from: customer_group
     relationship: one_to_one
-    sql_on: ${sales_flat_order.customer_group_id} = ${customer_group.customer_group_id} ;;
+    sql_on: ${sales_flat_order.customer_group_id} = ${customer_group_order.customer_group_id}.customer_group_id} ;;
   }
   join: sales_flat_quote {
     relationship: one_to_one
@@ -684,7 +693,7 @@ explore: sales_flat_order {
   }
   join: customer_retention_analysis {
     relationship: one_to_one
-    sql_on: ${sales_flat_order.customer_id} = ${customer_retention_analysis.customer_id} ;;
+    sql_on: ${sales_flat_order.customer_email_transfer} = ${customer_retention_analysis.customer_email_transfer} ;;
   }
   join: customer_cumulative_sales {
     relationship: one_to_one
@@ -765,6 +774,10 @@ explore: sales_flat_quote {
     type: left_outer
     sql_on: ${customer_retention_analysis.customer_id} = ${sales_flat_quote.customer_id};;
     relationship: one_to_one
+  }
+  join: sales_flat_order_address {
+    relationship: one_to_one
+    sql_on: ${sales_flat_order.shipping_address_id} = ${sales_flat_order_address.entity_id} ;;
   }
 }
 
